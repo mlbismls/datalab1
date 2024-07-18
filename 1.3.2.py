@@ -1,6 +1,8 @@
 from collections import defaultdict
 from itertools import product
 
+import matplotlib.pyplot as plt
+
 
 def generate_coin_sample_space(num_flips):
     sample_space = {'Heads', 'Tails'}
@@ -16,7 +18,7 @@ def generate_coin_sample_space(num_flips):
 
 def get_matching_event(event_condition, generic_sample_space):
     return set([outcome for outcome in generic_sample_space
-                if event_condition(outcome, 5, 15) == 0])
+                if event_condition(outcome, 3, 8) == 0])
 
 
 def compute_event_probability(event_condition, generic_sample_space):
@@ -33,6 +35,11 @@ def is_in_interval(x, minimum, maximum):
     return minimum <= x <= maximum
 
 
-weighted_sample_space = generate_coin_sample_space(20)
+weighted_sample_space = generate_coin_sample_space(10)
 prob = compute_event_probability(is_in_interval, weighted_sample_space)
-print(prob)
+
+x= list(weighted_sample_space.keys())
+sample_space_count=sum(weighted_sample_space.values())
+y= [weighted_sample_space[key]/sample_space_count  for key in x ]
+plt.scatter(x, y)
+plt.show()
